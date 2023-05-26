@@ -91,12 +91,12 @@ class Request {
     return new Promise((resolve, reject) => {
       try {
         if (!testMethod(method)) throw new Error('不支持的请求方法')
+
         const xhr = new XMLHttpRequest()
-        let body: string = ''
 
         xhr.open(method.toLocaleUpperCase(), this.baseURL + url, true)
 
-        xhr.responseType = config?.type || 'json'
+        xhr.responseType = config?.type || 'text'
 
         if (config?.headers) {
           Object.keys(config.headers).forEach((h) => {
@@ -107,10 +107,19 @@ class Request {
         if (!config?.headers?.contentType) {
           xhr.setRequestHeader('Content-Type', 'application/json')
         }
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+
+        xhr.withCredentials = true
 
         xhr.onload = async () => {
           if (xhr.status === 200) {
-            resolve(xhr.response)
+            let data = xhr.response
+            if (xhr.responseType === 'text') {
+              try {
+                data = JSON.parse(data)
+              } catch (error) {}
+            }
+            resolve(data)
           } else {
             reject(xhr)
           }

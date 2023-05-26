@@ -1,5 +1,11 @@
 import Request, { requestMethod } from './index'
 
-const request = new Request('https://developer.mozilla.org')
+const request = new Request('http://localhost:3000')
 
-request.get('/zh-CN/docs/Web/API/URLSearchParams/append', [1, 1, 1, 1])
+request.post('/users', {}).then((result) => {
+  console.log(result)
+})
+
+// request.get('/users').then((result) => {
+//   console.log(result)
+// })
