@@ -6,7 +6,12 @@
     "module": "es6",
     "target": "es5",
     "allowJs": true,
-    "outDir": "bin"
+    "importHelpers": false,
+    "outDir": "bin",
+    "baseUrl": "./",
+    "paths": {
+      "tslib": ["path/to/node_modules/tslib/tslib.d.ts"]
+    }
   },
   "files": ["src/index.ts"]
 }

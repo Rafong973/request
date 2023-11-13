@@ -1,6 +1,6 @@
-import Request, { requestMethod } from './index'
+import { Download, requestUtils } from './index'
 
-const request = new Request('http://localhost:3000')
+const request = new Download('http://localhost:3000')
 
 request.post('/users', {}).then((result) => {
   console.log(result)
